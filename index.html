@@ -1,4 +1,5 @@
-  <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -19,11 +20,12 @@
         content="Iyanuoluwa Oyeyipo"
     >
 
+    <meta name="theme-color" content="#0b111e">
+
     <title>Oyips — More Than One Dimension</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
-
 
 <body>
 
@@ -51,6 +53,9 @@
             class="menu-button"
             id="menuButton"
             aria-label="Open navigation"
+            aria-expanded="false"
+            aria-controls="sideNav"
+            type="button"
         >
             <span></span>
             <span></span>
@@ -100,7 +105,7 @@
             data-session="4"
         >
             <span>04</span>
-            Oyips Analysis
+            Oyip's Analysis
         </a>
 
         <a
@@ -120,7 +125,6 @@
     ========================================== -->
 
     <main>
-
 
         <!-- =====================================
              SESSION 01 — INTRODUCTION
@@ -176,6 +180,7 @@
                         <button
                             class="start-button"
                             data-next="2"
+                            type="button"
                         >
                             Begin the journey
                             <span>→</span>
@@ -183,15 +188,7 @@
 
                     </div>
 
-
                     <div class="intro-visual">
-
-                        <!--
-                            MAIN OYIPS IMAGE
-
-                            Expected location:
-                            assests/images/oyips.jpg
-                        -->
 
                         <img
                             src="./assests/images/oyips.jpg"
@@ -206,7 +203,6 @@
             </div>
 
         </section>
-
 
 
         <!-- =====================================
@@ -236,7 +232,6 @@
                     </h2>
 
                 </div>
-
 
                 <div class="content-grid">
 
@@ -279,13 +274,6 @@
 
                         </div>
 
-
-                        <!--
-                            OYIPS TECH LINK
-
-                            Replace # with your actual link later.
-                        -->
-
                         <a
                             href="#"
                             class="outline-button"
@@ -298,20 +286,13 @@
 
                     </div>
 
-
                     <div class="visual-card tech-card">
-
-                        <!--
-                            OYIPS TECH IMAGE
-
-                            Expected location:
-                            assests/images/oyips-tech.jpg
-                        -->
 
                         <img
                             src="./assests/images/oyips-tech.jpg"
                             alt="Oyips Tech"
                             class="section-image"
+                            loading="lazy"
                         >
 
                         <div class="card-caption">
@@ -331,7 +312,6 @@
             </div>
 
         </section>
-
 
 
         <!-- =====================================
@@ -362,23 +342,15 @@
 
                 </div>
 
-
                 <div class="content-grid reverse">
 
-
                     <div class="visual-card tutor-card">
-
-                        <!--
-                            OYIPS TUTOR IMAGE
-
-                            Expected location:
-                            assests/images/oyips-tutor.jpg
-                        -->
 
                         <img
                             src="./assests/images/oyips-tutor.jpg"
                             alt="Oyips Tutor — Mathematics, Science and STEM Education"
                             class="section-image"
+                            loading="lazy"
                         >
 
                         <div class="card-caption">
@@ -392,7 +364,6 @@
                         </div>
 
                     </div>
-
 
                     <div>
 
@@ -427,30 +398,6 @@
                             animations and videos.
                         </p>
 
-
-                        <!--
-                            FUTURE VIDEO AREA
-
-                            You can later add YouTube embeds or
-                            local video files here.
-
-                            Example:
-
-                            <video controls>
-                                <source
-                                    src="assests/videos/lesson.mp4"
-                                    type="video/mp4"
-                                >
-                            </video>
-                        -->
-
-
-                        <!--
-                            OYIPS TUTOR LINK
-
-                            Replace # with your actual link later.
-                        -->
-
                         <a
                             href="#"
                             class="outline-button"
@@ -468,7 +415,6 @@
             </div>
 
         </section>
-
 
 
         <!-- =====================================
@@ -498,7 +444,6 @@
                     </h2>
 
                 </div>
-
 
                 <div class="analysis-intro">
 
@@ -532,16 +477,13 @@
 
                 </div>
 
-
                 <div class="analysis-principles">
 
                     <div class="principle">
 
                         <span>01</span>
 
-                        <h3>
-                            Question
-                        </h3>
+                        <h3>Question</h3>
 
                         <p>
                             Start with the problem, not the model.
@@ -549,14 +491,11 @@
 
                     </div>
 
-
                     <div class="principle">
 
                         <span>02</span>
 
-                        <h3>
-                            Model
-                        </h3>
+                        <h3>Model</h3>
 
                         <p>
                             Build a mathematical representation
@@ -565,14 +504,11 @@
 
                     </div>
 
-
                     <div class="principle">
 
                         <span>03</span>
 
-                        <h3>
-                            Test
-                        </h3>
+                        <h3>Test</h3>
 
                         <p>
                             Compare the model with evidence.
@@ -580,14 +516,11 @@
 
                     </div>
 
-
                     <div class="principle">
 
                         <span>04</span>
 
-                        <h3>
-                            Understand
-                        </h3>
+                        <h3>Understand</h3>
 
                         <p>
                             The goal is not just prediction.
@@ -598,46 +531,19 @@
 
                 </div>
 
-
-                <!--
-                    OYIP'S ANALYSIS GITHUB LINK
-
-                    Replace # with your OyipsAnalysis repository.
-
-                    Example:
-
-                    https://github.com/Oyips/OyipsAnalysis
-                -->
-
                 <a
                     href="https://github.com/Oyips/Oyips-Analysis"
                     class="analysis-button"
                     target="_blank"
                     rel="noopener noreferrer"
-                  >
-    <span>
-        Explore Oyip's Analysis
-    </span>
-
-    <span class="button-arrow">
-        ↗
-    </span>
-                </a>
-
-                    <span>
-                        Explore Oyip's Analysis
-                    </span>
-
-                    <span class="button-arrow">
-                        ↗
-                    </span>
-
+                >
+                    <span>Explore Oyip's Analysis</span>
+                    <span class="button-arrow">↗</span>
                 </a>
 
             </div>
 
         </section>
-
 
 
         <!-- =====================================
@@ -668,7 +574,6 @@
 
                 </div>
 
-
                 <div class="art-intro">
 
                     <p class="large-text">
@@ -698,52 +603,333 @@
                 </div>
 
 
-                <!-- ==========================================
-                     POEM GALLERY
-                =========================================== -->
+                <!-- =================================
+                     POEM GALLERY SLIDER
+                ================================== -->
 
-                <div class="poem-grid">
+                <div class="poem-gallery">
 
+                    <div class="poem-gallery-heading">
 
-                    <!-- POEM 01 -->
-
-                    <article class="poem-card">
-
-                        <!--
-                            Expected location:
-                            assests/images/poems/fate.jpg
-                        -->
-
-                        <img
-                            src="./assests/images/poems/fate.jpg"
-                            alt="Fate — Oyips"
-                        >
-
-                        <div class="poem-info">
-
-                            <p class="poem-category">
-                                POETRY
+                        <div>
+                            <p class="eyebrow">
+                                A COLLECTION OF WORDS
                             </p>
 
-                            <h3>
-                                Fate
-                            </h3>
-
-                            <p>
-                                A reflection on memory, loss,
-                                love and what remains when time
-                                begins to change what we once felt.
-                            </p>
-
-                            <a href="#">
-                                Read poem →
-                            </a>
-
+                            <h3>Poetry & Reflections</h3>
                         </div>
 
-                    </article>
+                        <p
+                            class="poem-slide-count"
+                            aria-live="polite"
+                        >
+                            <span class="poem-current-slide">01</span>
+                            / 12
+                        </p>
+
+                    </div>
 
 
-                    <!-- POEM 02 -->
+                    <div
+                        class="poem-slider"
+                        id="poemSlider"
+                        tabindex="0"
+                        aria-label="Poem gallery. Swipe or use the navigation buttons to browse."
+                    >
 
-                    <a
+                        <div
+                            class="poem-track"
+                            id="poemTrack"
+                        >
+
+                            <!-- POEM 01 -->
+
+                            <article class="poem-card">
+
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem1.png"
+                                        alt="Poem 1 by Oyips"
+                                        loading="lazy"
+                                    >
+                                </div>
+
+                                <div class="poem-info">
+                                    <p class="poem-category">POETRY</p>
+                                    <h3>Poem 1</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+
+                            </article>
+
+
+                            <!-- POEM 02 -->
+
+                            <article class="poem-card">
+
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem2.png"
+                                        alt="Poem 2 by Oyips"
+                                        loading="lazy"
+                                    >
+                                </div>
+
+                                <div class="poem-info">
+                                    <p class="poem-category">POETRY</p>
+                                    <h3>Poem 2</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+
+                            </article>
+
+
+                            <!-- POEM 03 -->
+
+                            <article class="poem-card">
+
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem3.png"     
+                                        alt="Oyips poem 3"
+                                />
+                                </div>
+
+                                <div class="poem-info">
+                                    <p class="poem-category">POEM 03</p>
+                                    <h3>Poem 3</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+
+                            </article>
+
+                            <!-- POEM 04 -->
+                            <article class="poem-card">
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem4.png"
+                                        alt="Oyips poem 4"
+                                    />
+                                </div>
+                                <div class="poem-info">
+                                    <p class="poem-category">POEM 04</p>
+                                    <h3>Poem 4</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+                            </article>
+
+                            <!-- POEM 05 -->
+                            <article class="poem-card">
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem5.png"
+                                        alt="Oyips poem 5"
+                                    />
+                                </div>
+                                <div class="poem-info">
+                                    <p class="poem-category">POEM 05</p>
+                                    <h3>Poem 5</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+                            </article>
+
+                            <!-- POEM 06 -->
+                            <article class="poem-card">
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem6.png"
+                                        alt="Oyips poem 6"
+                                    />
+                                </div>
+                                <div class="poem-info">
+                                    <p class="poem-category">POEM 06</p>
+                                    <h3>Poem 6</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+                            </article>
+
+                            <!-- POEM 07 -->
+                            <article class="poem-card">
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem7.png"
+                                        alt="Oyips poem 7"
+                                    />
+                                </div>
+                                <div class="poem-info">
+                                    <p class="poem-category">POEM 07</p>
+                                    <h3>Poem 7</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+                            </article>
+
+                            <!-- POEM 08 -->
+                            <article class="poem-card">
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem8.png"
+                                        alt="Oyips poem 8"
+                                    />
+                                </div>
+                                <div class="poem-info">
+                                    <p class="poem-category">POEM 08</p>
+                                    <h3>Poem 8</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+                            </article>
+
+                            <!-- POEM 09 -->
+                            <article class="poem-card">
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem9.png"
+                                        alt="Oyips poem 9"
+                                    />
+                                </div>
+                                <div class="poem-info">
+                                    <p class="poem-category">POEM 09</p>
+                                    <h3>Poem 9</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+                            </article>
+
+                            <!-- POEM 10 -->
+                            <article class="poem-card">
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem10.png"
+                                        alt="Oyips poem 10"
+                                    />
+                                </div>
+                                <div class="poem-info">
+                                    <p class="poem-category">POEM 10</p>
+                                    <h3>Poem 10</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+                            </article>
+
+                            <!-- POEM 11 -->
+                            <article class="poem-card">
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem11.png"
+                                        alt="Oyips poem 11"
+                                    />
+                                </div>
+                                <div class="poem-info">
+                                    <p class="poem-category">POEM 11</p>
+                                    <h3>Poem 11</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+                            </article>
+
+                            <!-- POEM 12 -->
+                            <article class="poem-card">
+                                <div class="poem-image">
+                                    <img
+                                        src="./assests/images/poems/poem12.png"
+                                        alt="Oyips poem 12"
+                                    />
+                                </div>
+                                <div class="poem-info">
+                                    <p class="poem-category">POEM 12</p>
+                                    <h3>Poem 12</h3>
+                                    <p>A piece from Oyips' creative collection.</p>
+                                </div>
+                            </article>
+
+                        </div>
+                    </div>
+
+                    <!-- SLIDER CONTROLS -->
+                    <div class="poem-slider-controls">
+                        <button
+                            type="button"
+                            class="poem-arrow"
+                            id="poemPrev"
+                            aria-label="Previous poem"
+                        >
+                            ← Previous
+                        </button>
+
+                        <div
+                            class="poem-dots"
+                            id="poemDots"
+                            aria-label="Choose a poem"
+                        ></div>
+
+                        <button
+                            type="button"
+                            class="poem-arrow"
+                            id="poemNext"
+                            aria-label="Next poem"
+                        >
+                            Next →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- REFLECTION -->
+                <div class="art-reflection">
+                    <span class="section-label">A FINAL THOUGHT</span>
+
+                    <h3>Different expressions. One search.</h3>
+
+                    <p>
+                        Technology builds. Teaching explains. Analysis questions.
+                        Art reflects. And somewhere between them all, I am still
+                        trying to understand.
+                    </p>
+                </div>
+
+                <!-- NAVIGATION -->
+                <div class="session-navigation">
+                    <button class="nav-button prev-button" data-prev="4">
+                        <span>←</span>
+                        Previous
+                    </button>
+
+                    <a href="#intro" class="nav-button home-button">
+                        Back to the beginning ↑
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <a href="#intro" class="footer-logo">Oyips<span>.</span></a>
+
+            <p>More than one dimension.</p>
+
+            <div class="footer-links">
+                <a
+                    href="https://github.com/Oyips"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >GitHub</a>
+
+                <a
+                    href="https://linkedin.com/in/iyanuoluwa-oyeyipo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >LinkedIn</a>
+
+                <a href="mailto:oyipspo21@gmail.com">Email</a>
+            </div>
+
+            <p class="copyright">
+                © <span id="footerYear">2026</span> Oyips. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="./script.js"></script>
+
+</body>
+</html>
+                   
