@@ -10,50 +10,30 @@ document.addEventListener("DOMContentLoaded", () => {
        ELEMENTS
     ===================================================== */
 
-    const sessions = [
-        ...document.querySelectorAll(".session")
-    ];
+    const sessions = [...document.querySelectorAll(".session")];
+    const navLinks = [...document.querySelectorAll(".nav-link")];
 
-    const navLinks = [
-        ...document.querySelectorAll(".nav-link")
-    ];
+    const previousButtons = [
+        ...document.querySelectorAll("#previousButton, .prev-button")
+    ].filter((button, index, buttons) =>
+        buttons.indexOf(button) === index
+    );
 
-    const previousButton =
-        document.getElementById("previousButton");
-
-    const nextButton =
-        document.getElementById("nextButton");
-
-    const sessionNumber =
-        document.getElementById("sessionNumber");
-
-    const progressBar =
-        document.getElementById("progressBar");
-
-    const menuButton =
-        document.getElementById("menuButton");
-
-    const sideNav =
-        document.getElementById("sideNav");
-
-    const startButton =
-        document.querySelector(".start-button");
-
-    const year =
-        document.getElementById("year");
-
-    const footerYear =
-        document.getElementById("footerYear");
-
+    const nextButton = document.getElementById("nextButton");
+    const sessionNumber = document.getElementById("sessionNumber");
+    const progressBar = document.getElementById("progressBar");
+    const menuButton = document.getElementById("menuButton");
+    const sideNav = document.getElementById("sideNav");
+    const startButton = document.querySelector(".start-button");
+    const year = document.getElementById("year");
+    const footerYear = document.getElementById("footerYear");
 
     /* =====================================================
        CURRENT SESSION
     ===================================================== */
 
     let currentSession = 1;
-
     const totalSessions = sessions.length;
-
 
     /* =====================================================
        YEAR
@@ -61,21 +41,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentYear = new Date().getFullYear();
 
-    if (year) {
-        year.textContent = currentYear;
+    if (year) year.textContent = currentYear;
+    if (footerYear) footerYear.textContent = currentYear;
+
+    /* =====================================================
+       MOBILE MENU
+    ===================================================== */
+
+    function closeMobileMenu() {
+        if (sideNav) sideNav.classList.remove("open");
+
+        if (menuButton) {
+            menuButton.setAttribute("aria-expanded", "false");
+        }
     }
 
-    if (footerYear) {
-        footerYear.textContent = currentYear;
-    }
+    if (menuButton && sideNav) {
+        menuButton.addEventListener("click", () => {
+            const isOpen = sideNav.classList.toggle("open");
 
+            menuButton.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+        });
+
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape") {
+                closeMobileMenu();
+            }
+        });
+    }
 
     /* =====================================================
        UPDATE SESSION INTERFACE
     ===================================================== */
 
     function updateInterface(number) {
-
         if (totalSessions === 0) return;
 
         currentSession = Math.max(
@@ -83,30 +85,19 @@ document.addEventListener("DOMContentLoaded", () => {
             Math.min(number, totalSessions)
         );
 
-        /* Session number */
-
         if (sessionNumber) {
             sessionNumber.textContent =
                 String(currentSession).padStart(2, "0");
         }
 
-        /* Progress bar */
-
         if (progressBar) {
-            const progress =
-                (currentSession / totalSessions) * 100;
-
-            progressBar.style.width = `${progress}%`;
+            progressBar.style.width =
+                `${(currentSession / totalSessions) * 100}%`;
         }
 
-        /* Navigation links */
-
         navLinks.forEach(link => {
-            const linkSession =
-                Number(link.dataset.session);
-
-            const isActive =
-                linkSession === currentSession;
+            const linkSession = Number(link.dataset.session);
+            const isActive = linkSession === currentSession;
 
             link.classList.toggle("active", isActive);
 
@@ -117,46 +108,41 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        /* Previous button */
+        previousButtons.forEach(button => {
+            const targetSession = button.dataset.prev !== undefined
+                ? Number(button.dataset.prev)
+                : currentSession - 1;
 
-        if (previousButton) {
-            previousButton.disabled =
-                currentSession === 1;
+            const isDisabled =
+                targetSession < 1 ||
+                targetSession > totalSessions;
 
-            previousButton.style.opacity =
-                currentSession === 1 ? "0.35" : "1";
-        }
-
-        /* Next button */
+            button.disabled = isDisabled;
+            button.style.opacity = isDisabled ? "0.35" : "1";
+        });
 
         if (nextButton) {
-            nextButton.disabled =
+            const isLastSession =
                 currentSession === totalSessions;
 
+            nextButton.disabled = isLastSession;
             nextButton.style.opacity =
-                currentSession === totalSessions
-                    ? "0.35"
-                    : "1";
+                isLastSession ? "0.35" : "1";
         }
     }
-
 
     /* =====================================================
        GO TO SESSION
     ===================================================== */
 
     function goToSession(number) {
-
-        if (
-            number < 1 ||
-            number > totalSessions
-        ) {
-            return;
-        }
+        if (number < 1 || number > totalSessions) return;
 
         const target = sessions[number - 1];
-
         if (!target) return;
+
+        updateInterface(number);
+        closeMobileMenu();
 
         target.scrollIntoView({
             behavior: window.matchMedia(
@@ -164,11 +150,25 @@ document.addEventListener("DOMContentLoaded", () => {
             ).matches ? "auto" : "smooth",
             block: "start"
         });
-
-        updateInterface(number);
-        closeMobileMenu();
     }
 
+    /* =====================================================
+       PREVIOUS SESSION
+    ===================================================== */
+
+    previousButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            /*
+             * If data-prev is present, use that exact session.
+             * Otherwise, move back one session.
+             */
+            const targetSession = button.dataset.prev !== undefined
+                ? Number(button.dataset.prev)
+                : currentSession - 1;
+
+            goToSession(targetSession);
+        });
+    });
 
     /* =====================================================
        NEXT SESSION
@@ -180,44 +180,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-
-    /* =====================================================
-       PREVIOUS SESSION
-    ===================================================== */
-
-    if (previousButton) {
-        previousButton.addEventListener("click", () => {
-            goToSession(currentSession - 1);
-        });
-    }
-
-
     /* =====================================================
        START BUTTON
     ===================================================== */
 
     if (startButton) {
         startButton.addEventListener("click", () => {
-            const nextSession =
-                Number(startButton.dataset.next);
+            const targetSession = Number(startButton.dataset.next);
 
-            if (Number.isFinite(nextSession)) {
-                goToSession(nextSession);
+            if (Number.isFinite(targetSession)) {
+                goToSession(targetSession);
             }
         });
     }
 
-
     /* =====================================================
-       NAVIGATION LINKS
+       SIDE NAVIGATION LINKS
     ===================================================== */
 
     navLinks.forEach(link => {
         link.addEventListener("click", event => {
             event.preventDefault();
 
-            const number =
-                Number(link.dataset.session);
+            const number = Number(link.dataset.session);
 
             if (Number.isFinite(number)) {
                 goToSession(number);
@@ -225,96 +210,37 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-
-    /* =====================================================
-       MOBILE MENU
-    ===================================================== */
-
-    function closeMobileMenu() {
-
-        if (sideNav) {
-            sideNav.classList.remove("open");
-        }
-
-        if (menuButton) {
-            menuButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-        }
-    }
-
-    if (menuButton && sideNav) {
-        menuButton.addEventListener("click", () => {
-
-            const isOpen =
-                sideNav.classList.toggle("open");
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                String(isOpen)
-            );
-        });
-
-        /* Close the menu with Escape */
-
-        document.addEventListener("keydown", event => {
-            if (event.key === "Escape") {
-                closeMobileMenu();
-            }
-        });
-    }
-
-
     /* =====================================================
        DETECT CURRENT SESSION WHILE SCROLLING
     ===================================================== */
 
-    if (
-        sessions.length > 0 &&
-        "IntersectionObserver" in window
-    ) {
-        const observer = new IntersectionObserver(
-            entries => {
+    if (sessions.length > 0 && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const number = sessions.indexOf(entry.target) + 1;
 
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-
-                        const number =
-                            sessions.indexOf(entry.target) + 1;
-
-                        if (number > 0) {
-                            updateInterface(number);
-                        }
+                    if (number > 0) {
+                        updateInterface(number);
                     }
-                });
-
-            },
-            {
-                threshold: 0.45
-            }
-        );
-
-        sessions.forEach(session => {
-            observer.observe(session);
+                }
+            });
+        }, {
+            threshold: 0.45
         });
-    }
 
+        sessions.forEach(session => observer.observe(session));
+    }
 
     /* =====================================================
        KEYBOARD SESSION NAVIGATION
     ===================================================== */
 
     document.addEventListener("keydown", event => {
-
         const target = event.target;
-
         if (!target) return;
 
-        const tag =
-            target.tagName.toLowerCase();
-
-        /* Don't interfere with typing or controls */
+        const tag = target.tagName.toLowerCase();
 
         if (
             tag === "input" ||
@@ -326,12 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        /* Don't override arrow keys used by the poem slider */
-
-        if (
-            target.closest &&
-            target.closest("#poemSlider")
-        ) {
+        if (target.closest && target.closest("#poemSlider")) {
             return;
         }
 
@@ -352,25 +273,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-
     /* =====================================================
        ART & PHILOSOPHY — POEM SLIDER
     ===================================================== */
 
-    const poemSlider =
-        document.getElementById("poemSlider");
-
-    const poemTrack =
-        document.getElementById("poemTrack");
-
-    const poemPrev =
-        document.getElementById("poemPrev");
-
-    const poemNext =
-        document.getElementById("poemNext");
-
-    const poemDots =
-        document.getElementById("poemDots");
+    const poemSlider = document.getElementById("poemSlider");
+    const poemTrack = document.getElementById("poemTrack");
+    const poemPrev = document.getElementById("poemPrev");
+    const poemNext = document.getElementById("poemNext");
+    const poemDots = document.getElementById("poemDots");
 
     const poemCurrentLabel =
         document.querySelector(".poem-current-slide");
@@ -388,21 +299,17 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
 
         if (poemCards.length > 0) {
-
             let activePoem = 0;
             let scrollFrame = null;
-
-            /* Create one indicator dot per poem */
+            let resizeTimer;
 
             poemDots.replaceChildren();
 
             const dots = poemCards.map((card, index) => {
-
                 const dot = document.createElement("button");
 
                 dot.type = "button";
                 dot.className = "poem-dot";
-
                 dot.setAttribute(
                     "aria-label",
                     `Go to poem ${index + 1}`
@@ -413,15 +320,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 poemDots.appendChild(dot);
-
                 return dot;
             });
 
-
-            /* Update slider controls and indicator */
-
             function updatePoemControls(index) {
-
                 activePoem = Math.max(
                     0,
                     Math.min(index, poemCards.length - 1)
@@ -431,48 +333,29 @@ document.addEventListener("DOMContentLoaded", () => {
                     String(activePoem + 1).padStart(2, "0");
 
                 dots.forEach((dot, dotIndex) => {
+                    const isActive = dotIndex === activePoem;
 
-                    const isActive =
-                        dotIndex === activePoem;
-
-                    dot.classList.toggle(
-                        "is-active",
-                        isActive
-                    );
+                    dot.classList.toggle("is-active", isActive);
 
                     if (isActive) {
-                        dot.setAttribute(
-                            "aria-current",
-                            "true"
-                        );
+                        dot.setAttribute("aria-current", "true");
                     } else {
                         dot.removeAttribute("aria-current");
                     }
                 });
 
                 poemPrev.disabled = activePoem === 0;
-
                 poemNext.disabled =
                     activePoem === poemCards.length - 1;
             }
 
-
-            /* Move to a selected poem */
-
             function goToPoem(index) {
-
                 const targetIndex = Math.max(
                     0,
                     Math.min(index, poemCards.length - 1)
                 );
 
-                const targetCard =
-                    poemCards[targetIndex];
-
-                /*
-                 * Calculate the card's position relative
-                 * to the scrollable slider.
-                 */
+                const targetCard = poemCards[targetIndex];
 
                 const sliderRect =
                     poemSlider.getBoundingClientRect();
@@ -495,9 +378,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 updatePoemControls(targetIndex);
             }
 
-
-            /* Previous and next controls */
-
             poemPrev.addEventListener("click", () => {
                 goToPoem(activePoem - 1);
             });
@@ -506,17 +386,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 goToPoem(activePoem + 1);
             });
 
-
-            /* Update the active poem during touch/swipe/scroll */
-
             poemSlider.addEventListener("scroll", () => {
-
                 if (scrollFrame !== null) {
                     cancelAnimationFrame(scrollFrame);
                 }
 
                 scrollFrame = requestAnimationFrame(() => {
-
                     const sliderRect =
                         poemSlider.getBoundingClientRect();
 
@@ -528,9 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     let closestDistance = Infinity;
 
                     poemCards.forEach((card, index) => {
-
-                        const cardRect =
-                            card.getBoundingClientRect();
+                        const cardRect = card.getBoundingClientRect();
 
                         const cardCenter =
                             cardRect.left + cardRect.width / 2;
@@ -545,17 +418,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
 
                     updatePoemControls(closestIndex);
-
                     scrollFrame = null;
                 });
-
             }, { passive: true });
 
-
-            /* Allow keyboard users to navigate the poems */
-
             poemSlider.addEventListener("keydown", event => {
-
                 if (event.key === "ArrowRight") {
                     event.preventDefault();
                     goToPoem(activePoem + 1);
@@ -567,13 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
 
-
-            /* Keep the active poem aligned after resizing */
-
-            let resizeTimer;
-
             window.addEventListener("resize", () => {
-
                 clearTimeout(resizeTimer);
 
                 resizeTimer = setTimeout(() => {
@@ -581,13 +442,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, 100);
             });
 
-
-            /* Initial slider state */
-
             updatePoemControls(0);
         }
     }
-
 
     /* =====================================================
        INITIAL STATE
