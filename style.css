@@ -1225,3 +1225,51 @@ footer {
         height: min(115vw, 480px);
     }
 }
+
+
+
+/* =========================================================
+   DESKTOP LAYOUT FIX — SIDEBAR AND INTRODUCTION
+   Mobile styling remains unchanged
+========================================================= */
+
+@media (min-width: 1001px) {
+
+    /* Reserve space for the fixed Explore Oyips sidebar */
+    .session {
+        padding-left: clamp(250px, 20vw, 320px);
+        padding-right: clamp(50px, 7vw, 110px);
+    }
+
+    /* Keep session content within the available space */
+    .session-inner {
+        width: 100%;
+        max-width: var(--max-width);
+        min-width: 0;
+    }
+
+    /* Keep the introduction text and portrait balanced */
+    .intro-grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+        gap: clamp(30px, 4vw, 65px);
+        align-items: center;
+    }
+
+    .intro-text,
+    .intro-visual {
+        min-width: 0;
+    }
+
+    /* Prevent the main heading from overwhelming the layout */
+    h1 {
+        font-size: clamp(3.5rem, 5.5vw, 6rem);
+        overflow-wrap: normal;
+    }
+
+    /* Keep the portrait within its column */
+    .intro-visual {
+        width: 100%;
+        max-width: 380px;
+        justify-self: end;
+    }
+}
